@@ -68,7 +68,7 @@ public class BinaryInstaller {
 	private boolean selfTest() {
 		try {
 			ProcessExecutor processExecutor = new ProcessExecutor(true);
-			return 0 == processExecutor.execute(binaryName, "version");
+			return ProcessExecutor.EXITVALUE_NORMAL == processExecutor.execute(binaryName, "version");
 		}
 		catch (IOException ex) {
 			return false;
