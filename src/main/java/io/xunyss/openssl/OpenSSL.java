@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import io.xunyss.commons.exec.ExecuteException;
 import io.xunyss.commons.exec.ProcessExecutor;
-import io.xunyss.commons.exec.stream.StringOutputHandler;
+import io.xunyss.commons.exec.support.StringOutputHandler;
 
 /**
  * 
