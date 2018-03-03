@@ -2,6 +2,7 @@ package io.xunyss.openssl;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import java.net.URL;
 
 import io.xunyss.commons.exec.ProcessExecutor;
@@ -39,7 +40,13 @@ public class BinaryInstaller {
 	//----------------------------------------------------------------------------------------------
 	
 	private static final String RESOURCE_BINARY_PATH = "/io/xunyss/openssl/binary";
-	private static final String EXTRACT_DIRECTORY = "io_xunyss_openssl_bin";
+	private static final String EXTRACT_DIRECTORY;
+	
+	static {
+		// 서로 다른 JVM 이 임시 디렉토리를 공유하지 않게 하기 위해
+		String jvmName = ManagementFactory.getRuntimeMXBean().getName();
+		EXTRACT_DIRECTORY = "io_xunyss_openssl_bin_" + jvmName.replace('@', '-');
+	}
 	
 	private String binaryName = "openssl";	// default executable binary name
 	private boolean initialized;
