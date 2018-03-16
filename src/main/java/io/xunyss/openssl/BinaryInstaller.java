@@ -9,6 +9,7 @@ import io.xunyss.commons.exec.ProcessExecutor;
 import io.xunyss.commons.io.FileUtils;
 import io.xunyss.commons.io.ResourceUtils;
 import io.xunyss.commons.lang.SystemUtils;
+import io.xunyss.commons.lang.ThreadUtils;
 import io.xunyss.commons.lang.ZipUtils;
 
 /**
@@ -141,7 +142,17 @@ public class BinaryInstaller {
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			@Override
 			public void run() {
-				FileUtils.deleteDirectoryQuietly(dstDirectory);
+//				FileUtils.deleteDirectoryQuietly(dstDirectory);
+				// 2018.03.16 XUNYSS
+				// 가능성은 0 에 가깝지만, openssl Process 종료 후 아주 짧은 시간 안에 삭제를 시도하면 실패할 수 있음
+				// 임시 디렉토리 삭제시 re-try 로직을 추가 (retry count: 10, delay time: 100ms)
+				for (int retryCount = 0; retryCount < 10; retryCount++) {
+					FileUtils.deleteDirectoryQuietly(dstDirectory);
+					if (!dstDirectory.exists()) {
+						return;
+					}
+					ThreadUtils.sleep(100);
+				}
 			}
 		});
 	}
