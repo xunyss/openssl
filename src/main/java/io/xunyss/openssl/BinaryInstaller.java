@@ -140,18 +140,22 @@ public class BinaryInstaller {
 	 */
 	private void registerShutdownHook(final File dstDirectory) {
 		Runtime.getRuntime().addShutdownHook(new Thread() {
+			
+			static final int MAX_RETRY = 10;
+			static final int DELAY_MILLIS = 100;
+			
 			@Override
 			public void run() {
 //				FileUtils.deleteDirectoryQuietly(dstDirectory);
 				// 2018.03.16 XUNYSS
 				// 가능성은 0 에 가깝지만, openssl Process 종료 후 아주 짧은 시간 안에 삭제를 시도하면 실패할 수 있음
 				// 임시 디렉토리 삭제시 re-try 로직을 추가 (retry count: 10, delay time: 100ms)
-				for (int retryCount = 0; retryCount < 10; retryCount++) {
+				for (int retryCount = 0; retryCount < MAX_RETRY; retryCount++) {
 					FileUtils.deleteDirectoryQuietly(dstDirectory);
 					if (!dstDirectory.exists()) {
 						return;
 					}
-					ThreadUtils.sleep(100);
+					ThreadUtils.sleep(DELAY_MILLIS);
 				}
 			}
 		});
