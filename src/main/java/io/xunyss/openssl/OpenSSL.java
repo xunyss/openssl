@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import io.xunyss.commons.exec.ExecuteException;
 import io.xunyss.commons.exec.ProcessExecutor;
-import io.xunyss.commons.exec.support.StringOutputHandler;
+import io.xunyss.commons.exec.support.ToStringStreamHandler;
 
 /**
  * 
@@ -16,7 +16,7 @@ public class OpenSSL {
 	private String binaryName;
 	
 	private ProcessExecutor processExecutor;
-	private StringOutputHandler stringOutputHandler;
+	private ToStringStreamHandler toStringStreamHandler;
 	
 	/**
 	 * 
@@ -27,9 +27,9 @@ public class OpenSSL {
 		binaryName = binaryInstaller.getBinaryName();
 		
 		if (enableExecute) {
-			stringOutputHandler = new StringOutputHandler();
+			toStringStreamHandler = new ToStringStreamHandler();
 			processExecutor = new ProcessExecutor(true);
-			processExecutor.setStreamHandler(stringOutputHandler);
+			processExecutor.setStreamHandler(toStringStreamHandler);
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class OpenSSL {
 	 * @return
 	 */
 	public String getOutput() {
-		return stringOutputHandler.getOutputString();
+		return toStringStreamHandler.getOutputString();
 	}
 	
 	/**
@@ -64,6 +64,6 @@ public class OpenSSL {
 	 * @return
 	 */
 	public String getError() {
-		return stringOutputHandler.getErrorString();
+		return toStringStreamHandler.getErrorString();
 	}
 }
