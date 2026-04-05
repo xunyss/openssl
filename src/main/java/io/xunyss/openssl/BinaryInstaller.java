@@ -1,16 +1,16 @@
 package io.xunyss.openssl;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.management.ManagementFactory;
-import java.net.URL;
-
 import io.xunyss.commons.exec.ProcessExecutor;
 import io.xunyss.commons.io.FileUtils;
 import io.xunyss.commons.io.ResourceUtils;
 import io.xunyss.commons.lang.SystemUtils;
 import io.xunyss.commons.lang.ThreadUtils;
 import io.xunyss.commons.lang.ZipUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.net.URL;
 
 /**
  * https://wiki.openssl.org/index.php/Binaries
@@ -100,7 +100,7 @@ public class BinaryInstaller {
 			extractResources(srcResourceLocation, dstDirectory);
 		}
 		catch (IOException ex) {
-			// not not throw any exception
+			// not throw any exception
 			return;
 		}
 		finally {

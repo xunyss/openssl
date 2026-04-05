@@ -1,10 +1,10 @@
 package io.xunyss.openssl;
 
-import java.io.IOException;
-
 import io.xunyss.commons.exec.ExecuteException;
 import io.xunyss.commons.exec.ProcessExecutor;
 import io.xunyss.commons.exec.support.ToStringStreamHandler;
+
+import java.io.IOException;
 
 /**
  * 
